@@ -23,26 +23,17 @@ namespace Template.Web.Controllers.Api
             _Logger = logger;
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete(int id, byte[] concurrency)
-        {
-            var result = await _Repository.Delete(id, concurrency);
-            if (result.ConcurrencyError)
-                return Conflict(result.Data);
-            return NoContent();
-        }
-
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var result = await _Repository.FetchList();
+            var result = await _Repository.FetchListAsync();
             return Ok(result);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            var result = await _Repository.FetchEditor(id);
+            var result = await _Repository.FetchEditorAsync(id);
             if (result == null)
                 return NotFound();
             return Ok(result);
@@ -52,8 +43,8 @@ namespace Template.Web.Controllers.Api
         public async Task<ActionResult> Post([FromBody]EmployeeEditor data, int id = 0)
         {
             if (!ModelState.IsValid)
-                return this.BadRequest(ModelState);
-            var result = await _Repository.Save(data);
+                return BadRequest(ModelState);
+            var result = await _Repository.SaveAsync(data);
             if (result.ConcurrencyError)
                 return Conflict(result.Data);
             return Ok(result.Data);

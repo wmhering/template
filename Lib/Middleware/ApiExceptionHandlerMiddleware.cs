@@ -14,7 +14,7 @@ namespace CuyahogaHHS.Middleware
         private readonly RequestDelegate _Next;
         private readonly ILogger<ApiExceptionHandlerMiddleware> _Logger;
         private readonly LogLevel _LogLevel;
-        private string[] _Message;
+        private readonly string[] _Message;
 
         public ApiExceptionHandlerMiddleware(RequestDelegate next, ILogger<ApiExceptionHandlerMiddleware> logger, ApiExceptionHandlerOptions options)
         {

@@ -17,6 +17,7 @@ namespace CuyahogaHHS.Middleware
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+            await Task.Run(() => { });
             var result = AuthenticateResult.NoResult();
             return result;
         }

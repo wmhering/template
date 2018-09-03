@@ -12,7 +12,8 @@ namespace Template.Dal.Dto
         [Key, Column("EmployeeKey")]
         public int Key { get; set; }
 
-        [ConcurrencyCheck]
+        //[ConcurrencyCheck]
+        [Timestamp]
         public byte[] Concurrency { get; set; }
         #endregion
 
