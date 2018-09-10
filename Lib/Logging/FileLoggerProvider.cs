@@ -24,7 +24,7 @@ namespace CuyahogaHHS.Logging
             _MaximumFileSize = loggerOptions.MaximumFileSize;
         }
 
-        protected override async Task WriteMessagesAsync(IEnumerable<LogEntry> messages, CancellationToken cancellationToken)
+        protected override async Task WriteLogEntriesAsync(IEnumerable<LogEntry> messages, CancellationToken cancellationToken)
         {
             Stream stream = null;
             TextWriter writer = null;

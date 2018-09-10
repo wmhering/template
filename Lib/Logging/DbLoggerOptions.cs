@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CuyahogaHHS.Logging
+﻿namespace CuyahogaHHS.Logging
 {
     class DbLoggerOptions
     {
+        public string ConnectionStringName { get; set; }
     }
 }
