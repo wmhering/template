@@ -49,8 +49,8 @@ namespace Template.Web
             app.UseWhen(context =>
                 !context.Request.Path.StartsWithSegments(apiPath, StringComparison.InvariantCultureIgnoreCase),
                 a => UiConfigure(a, env));
-            app.UseAuthentication();
             app.UseCustomAuthorization(options => { });
+            app.UseAuthentication();
             app.UseMvc();
         }
 

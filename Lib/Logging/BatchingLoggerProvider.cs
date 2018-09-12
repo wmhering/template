@@ -88,6 +88,9 @@ namespace CuyahogaHHS.Logging
             }
         }
 
+        void LogLoggerError(Exception ex)
+        { }
+
         // Process log entries in the queue until the logger is stopped.
         private async Task ProcessLogEntryQueue(object state)
         {

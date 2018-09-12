@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
@@ -26,8 +26,20 @@ namespace CuyahogaHHS.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            // If there is a roles cookie and the user is au
+            if (!context.User.Identity.IsAuthenticated)
+            {
+                await _Next(context);
+                return;
+            }
+            string value;
+            if (!context.Request.Cookies.TryGetValue("MyCookie", out value))
+                value = "MyRole";
+            var claim = new Claim(ClaimTypes.Role, value);
+            var identity = new ClaimsIdentity(new Claim[] { claim });
+            context.User.AddIdentity(identity);
+            var authenticated = context.User.Identity.IsAuthenticated;
             await _Next(context);
+            context.Response.Cookies.Append("MyCookie", value, new CookieOptions { MaxAge = TimeSpan.FromMinutes(20) });
         }
     }
 }

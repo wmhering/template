@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace CuyahogaHHS.Logging
         private readonly int _MaximumFileCount;
         private readonly int _MaximumFileSize;
 
-        public FileLoggerProvider(IOptions<FileLoggerOptions> options):base(options)
+        public FileLoggerProvider(IOptions<FileLoggerOptions> options, IConfiguration configuration) : base(options, configuration)
         {
             var loggerOptions = options.Value;
             _FileNameRoot = loggerOptions.FileNameRoot;
